@@ -1,0 +1,132 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Seat Booking</title>  
+    <style>  
+       body {  
+    background-color: #007BFF; /* Blue background */  
+    font-family: Arial, sans-serif;  
+    margin: 0;  
+    height: 100vh;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+}  
+
+.container {  
+    background-color: #FFFFFF; /* White table background */  
+    padding: 20px;  
+    border-radius: 8px;  
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
+    text-align: center;  
+}  
+
+#seats {  
+    margin: 20px 0;  
+}  
+
+.seat {  
+    display: inline-block;  
+    width: 30px;  
+    height: 30px;  
+    margin: 5px;  
+    background-color: #f2f2f2;  
+    text-align: center;  
+    line-height: 30px;  
+    cursor: pointer;  
+    border: 1px solid #ccc; /* Added border for distinction */  
+    border-radius: 4px; /* Rounded corners for seats */  
+}  
+
+.seat.booked {  
+    background-color: #ff6666; /* Red for booked seats */  
+    cursor: not-allowed; /* Change cursor */  
+}  
+
+.seat.selected {  
+    background-color: #66b3ff; /* Light blue for selected seats */  
+}  
+
+form {  
+    margin-top: 20px;  
+}  
+
+input {  
+    width: 100%;  
+    padding: 10px;  
+    margin: 5px 0 15px 0;  
+    border: 1px solid #ccc;  
+    border-radius: 4px;  
+}  
+
+button {  
+    padding: 10px 15px;  
+    color: white;  
+    background-color: #007BFF; /* Button color */  
+    border: none;  
+    border-radius: 4px;  
+    cursor: pointer;  
+}  
+
+button:hover {  
+    background-color: #0056b3; /* Darker blue on hover */  
+} 
+    </style>  
+</head>  
+<body>  
+
+<h1>Seat Booking</h1>  
+<div id="seats">  
+    <!-- Example seat layout -->  
+    <div class="seat" onclick="selectSeat(this)">1</div>  
+    <div class="seat" onclick="selectSeat(this)">2</div>  
+    <div class="seat" onclick="selectSeat(this)">3</div>  
+    <div class="seat booked" onclick="alert('Seat already booked')"">4</div>  
+    <div class="seat" onclick="selectSeat(this)">5</div>  
+    <div class="seat" onclick="selectSeat(this)">6</div>  
+</div>  
+
+<h2>Booking Form</h2>  
+<form id="booking-form">  
+    <label for="name">Name:</label><br>  
+    <input type="text" id="name" name="name" required><br>  
+    
+    <label for="email">Email:</label><br>  
+    <input type="email" id="email" name="email" required><br><br>  
+    
+    <button type="submit">Book Seat</button>  
+</form>  
+
+<script>  
+    let selectedSeats = [];  
+
+    function selectSeat(seat) {  
+        if (seat.classList.contains('booked')) {  
+            alert('Seat is already booked');  
+            return;  
+        }  
+        seat.classList.toggle('selected');  
+        const seatNumber = seat.innerText;  
+        if (selectedSeats.includes(seatNumber)) {  
+            selectedSeats.splice(selectedSeats.indexOf(seatNumber), 1);  
+        } else {  
+            selectedSeats.push(seatNumber);  
+        }  
+    }  
+
+    document.getElementById('booking-form').onsubmit = function(event) {  
+        event.preventDefault();  
+        const name = document.getElementById('name').value;  
+        const email = document.getElementById('email').value;  
+        if(selectedSeats.length === 0) {  
+            alert('Please select a seat');  
+            return;  
+        }  
+        alert(`Seats booked:\n${selectedSeats.join(', ')}\nName: ${name}\nEmail: ${email}`);  
+    };  
+</script>  
+
+</body>  
+</html>
