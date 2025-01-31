@@ -3,7 +3,7 @@ const reservedSeats = JSON.parse(localStorage.getItem("reservedSeats")) || {};
 const form = document.getElementById("username-form");
 const bookingsContainer = document.getElementById("bookings-container");
 
-// Handle form submission
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const username = document.getElementById("username").value.trim();
@@ -12,7 +12,7 @@ form.addEventListener("submit", (e) => {
 
 // Function to display bookings for a specific user
 function displayBookings(username) {
-  bookingsContainer.innerHTML = ""; // Clear previous results
+  bookingsContainer.innerHTML = ""; 
 
   const userBookings = Object.entries(reservedSeats).filter(
     ([seat, name]) => name.toLowerCase() === username.toLowerCase()
@@ -43,10 +43,10 @@ function displayBookings(username) {
 
 // Function to delete a booking
 function deleteBooking(seat, username) {
-  // Confirm deletion
+  
   if (confirm(`Are you sure you want to delete booking for Seat ${seat}?`)) {
     delete reservedSeats[seat];
-    // Update local storage
+    
     localStorage.setItem("reservedSeats", JSON.stringify(reservedSeats));
     displayBookings(username);
   }

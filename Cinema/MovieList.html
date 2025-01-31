@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Descriptions</title>
+  <link rel="stylesheet" href="Movielistyle.css">
+</head>
+<body>
+<div class="wrapper">
+  <h1>Movie List</h1>
+    <ul class="movie-list">
+        <li class="movie-item" onclick="showSelection('apple')">
+            <img src="Images/apple.jpeg" alt="Apple">
+            <span>Apple</span>
+        </li>
+        <li class="movie-item" onclick="showSelection('the hunstman')">
+            <img src="Images/huntsman.jpeg " alt = "The hunstman">
+            <span>The huntsman</span>
+        </li>
+        <li class="movie-item" onclick="showSelection('blood and dust')">
+            <img src="Images/blood and dust 2.jpeg" alt="Blood and dust">
+            <span>Blood and Dust</span>
+        </li>
+   </ul>
+  
+    <div id="apple" class="description">
+      <strong>Inception:</strong> A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.
+    </div>
+  
+    <div id="the hunstman" class="description">
+      <strong>Interstellar:</strong> A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.
+    </div>
+  
+    <div id="blood and dust" class="description">
+      <strong>The Dark Knight:</strong> When the menace known as the Joker emerges, Batman must confront chaos and disorder in Gotham City.
+    </div>
+  
+    <div class="selection-container" id="selection-container">
+      <label for="day">Choose a day:</label>
+      <select id="day">
+        <option value="" disabled selected>Pick a day</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+      </select>
+  
+      <label for="time">Choose a time:</label>
+      <select id="time">
+        <option value="" disabled selected>Pick a time</option>
+        <option value="10:30">10:30</option>
+        <option value="15:00">15:00</option>
+        <option value="19:30">19:30</option>
+        <option value="20:00">20:00</option>
+      </select>
+  
+      <div class="checkbox-container">
+        <label>
+          <input type="checkbox" id="day-checkbox" disabled> Day selected
+        </label>
+        <label>
+          <input type="checkbox" id="time-checkbox" disabled> Time selected
+        </label>
+      </div>
+
+      <div class="output" id="output"></div>
+
+    <div>
+      <button class="continue-button" id="continue-button" disabled>Continue</button>
+    </div>
+</div>
+<script>
+    let selectedMovie = '';
+
+    function showSelection(movieId) {
+      selectedMovie = movieId;
+
+      // Hide all descriptions
+      const descriptions = document.querySelectorAll('.description');
+      descriptions.forEach(desc => {
+        desc.style.display = 'none';
+      });
+
+      // Show the selected description
+      const selectedDescription = document.getElementById(movieId);
+      if (selectedDescription) {
+        selectedDescription.style.display = 'block';
+      }
+
+      // Show the selection container
+      const selectionContainer = document.getElementById('selection-container');
+      selectionContainer.style.display = 'block';
+
+      // Clear previous selections and checkboxes
+      document.getElementById('day').selectedIndex = 0;
+      document.getElementById('time').selectedIndex = 0;
+      document.getElementById('day-checkbox').checked = false;
+      document.getElementById('time-checkbox').checked = false;
+
+      // Disable the continue button
+      document.getElementById('continue-button').disabled = true;
+
+      // Add event listeners to the select boxes
+      const daySelect = document.getElementById('day');
+      const timeSelect = document.getElementById('time');
+      daySelect.onchange = updateSelection;
+      timeSelect.onchange = updateSelection;
+    }
+
+    function updateSelection() {
+      const day = document.getElementById('day').value;
+      const time = document.getElementById('time').value;
+      const dayCheckbox = document.getElementById('day-checkbox');
+      const timeCheckbox = document.getElementById('time-checkbox');
+      const continueButton = document.getElementById('continue-button');
+      const output = document.getElementById('output');
+
+      // Update checkboxes
+      dayCheckbox.checked = !!day;
+      timeCheckbox.checked = !!time;
+
+      // Enable the continue button if both checkboxes are checked
+      continueButton.disabled = !(dayCheckbox.checked && timeCheckbox.checked);
+
+      // Update output paragraph
+      if (day && time) {
+        output.innerHTML = `You selected <strong>${selectedMovie}</strong> on <strong>${day}</strong> at <strong>${time}<strong> you may continue to book a seat </strong>.`;
+      } else {
+        output.innerHTML = '';
+      }
+    }
+
+    // Add event listener to the continue button
+    document.getElementById('continue-button').addEventListener('click', () => {
+      window.open("Bookseat.html", "_self");
+    });
+  </script>
+</body>
+</html>
