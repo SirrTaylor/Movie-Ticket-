@@ -116,7 +116,7 @@ p{
 button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #6c5ce7;
+    background-color: #3f3d58;
     color: white;
     border: none;
     border-radius: 5px;
@@ -174,7 +174,10 @@ a{
     width: 20px; 
 }
   
-
+.controls{
+ margin-top: 10px;
+ gap: 10px;
+}
 
   
 

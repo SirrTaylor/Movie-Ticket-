@@ -27,6 +27,10 @@
             </div>
             <button type="submit">Login</button>
         </form>
+        <div class="showpass">
+            <label for="pass-checkbox">Show Password</label>
+            <input type="checkbox" id="pass-checkbox">
+        </div>
         <p>Dont have an account? <a href="signup.html">Signup</a></p>
     </div>
 
@@ -35,26 +39,41 @@
         const pass_input = document.getElementById("pword");
         const myform = document.getElementById("form1");
         const err_msg = document.getElementById("error-msg");
+        const showHideCheckbox = document.getElementById("pass-checkbox");
 
-        
-        function checkLoginInfo(email, password) {
-            const storedEmail = localStorage.getItem("email_1");
-            const storedPassword = localStorage.getItem("password");
 
-            if (email === storedEmail && password === storedPassword) {
+    function checkLoginInfo(email, password) {
+        const storedEmail = localStorage.getItem("email_1");
+        const storedPassword = localStorage.getItem("password");
+        const userDataString = localStorage.getItem("userBookingDetails");
+        let userBookingDetails = userDataString ? JSON.parse(userDataString) : {};
+
+        if (storedEmail && email === storedEmail && storedPassword && password === storedPassword) {
+            return { success: true, message: "Login successful!" };
+        }
+
+        if (userBookingDetails && userBookingDetails[email]) {
+            if (email === userBookingDetails[email].email && password === userBookingDetails[email].password) {
+                // Login successful! Update localStorage.
+                localStorage.setItem("email_1", email);
+                localStorage.setItem("password", password); // Insecure!
+                localStorage.setItem("user-name", userBookingDetails[email].username); // Update username
+
                 return { success: true, message: "Login successful!" };
-            } else if (email !== storedEmail) {
-                return { success: false, message: "This email is not recognised." };
             } else {
-                return { success: false, message: "Password is incorrect." };
+                return { success: false, message: "Incorrect password." };
             }
         }
 
-        myform.addEventListener('submit', (e) => {
+        return { success: false, message: "Email not recognized." };
+    }
+
+
+    myform.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const email = email_input.value;
-            const password = pass_input.value;
+            const email = email_input.value.trim();
+            const password = pass_input.value.trim();
 
             // Validate credentials using checkLoginInfo
             const result = checkLoginInfo(email, password);
@@ -73,7 +92,19 @@
                     pass_input.parentNode.classList.add('incorrect');
                 }
             }
-        });
+    });
+
+
+    showHideCheckbox.addEventListener('change', () => {
+            if (showHideCheckbox.checked) {
+                pass_input.type = "text"; 
+               
+            } else {
+                pass_input.type = "password"; 
+                
+            }
+    });
+
     </script>
 </body>
 </html>

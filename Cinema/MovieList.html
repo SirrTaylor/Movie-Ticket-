@@ -12,7 +12,7 @@
     <ul class="movie-list">
         <li class="movie-item" onclick="showSelection('apple')">
             <img src="Images/apple.jpeg" alt="Apple">
-            <span>Apple</span>
+            <span>Apple of my Eye</span>
         </li>
         <li class="movie-item" onclick="showSelection('the hunstman')">
             <img src="Images/huntsman.jpeg " alt = "The hunstman">
@@ -25,15 +25,33 @@
    </ul>
   
     <div id="apple" class="description">
-      <strong>Inception:</strong> A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.
-    </div>
+      <strong>Apple of my Eye :</strong> 
+      <p>PG Rating: PG</p>
+      <p>Rotten Tomatoes Score: 92%</p>
+      <p>Description:
+        In the heartwarming family drama Apple of My Eye, a young girl named Lily discovers a magical apple tree in her grandmother's backyard that grants her the ability to see the world through others' eyes. As she navigates the challenges of growing up, Lily learns valuable lessons about empathy, forgiveness, and the importance of family. With stunning visuals, a touching storyline, and a stellar cast, this film is a delightful blend of fantasy and real-life emotions. Perfect for all ages, Apple of My Eye is a cinematic gem that will leave you inspired and uplifted.
+      </p>
+      <p>Price per ticket : $8 adults , $5 children under 13 </p>
+      </div>
   
     <div id="the hunstman" class="description">
-      <strong>Interstellar:</strong> A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.
-    </div>
+      <strong>The hunstman:</strong>
+      <p>PG Rating: PG-13  </p>
+      <p>Rotten Tomatoes Score: 85%</p>
+      <p>Description:  
+        In the gripping fantasy thriller The Huntsman, a skilled tracker and warrior finds himself in a shocking twist of fate: the hunter becomes the hunted. Once tasked with protecting his kingdom, the lone huntsman is now pursued by a relentless force of dark magic and merciless enemies after being framed for a crime he didn’t commit. With no allies to turn to and his own survival at stake, he must rely on his cunning, combat skills, and knowledge of the wild to outwit his pursuers and clear his name. Packed with heart-pounding action, stunning visuals, and a riveting storyline, *The Huntsman* is a tale of betrayal, survival, and redemption that will keep you on the edge of your seat. Critics hail it as a fresh and thrilling take on the fantasy genre.
+      </p>
+      <p>Price per ticket : $15 adults</p>
+      </div>
   
     <div id="blood and dust" class="description">
-      <strong>The Dark Knight:</strong> When the menace known as the Joker emerges, Batman must confront chaos and disorder in Gotham City.
+      <strong>Blood and Dust :</strong> 
+      <p>PG Rating: R </p>
+      <p> Rotten Tomatoes Score: 88% </p>
+      <p>Description: 
+      In the gritty, high-stakes Western Blood and Dust, a hardened outlaw named Cole Turner finds himself in a brutal twist of fate: the hunter becomes the hunted. After a botched robbery leaves his gang dead and a fortune in stolen gold missing, Cole is relentlessly pursued by a vengeful posse, ruthless bounty hunters, and his own guilt-ridden past. As he navigates the unforgiving desert, battling thirst, betrayal, and his own demons, Cole must decide whether to run forever or make a final stand. With its raw intensity, stunning cinematography, and a powerhouse performance by its lead, *Blood and Dust* is a gripping tale of survival, redemption, and the cost of freedom. Critics praise it as a modern Western masterpiece that redefines the genre.
+      </p>
+      <p>Price per ticket : $10 adults</p>
     </div>
   
     <div class="selection-container" id="selection-container">
@@ -71,72 +89,11 @@
     <div>
       <button class="continue-button" id="continue-button" disabled>Continue</button>
     </div>
+
+    <div class="controls">
+      <button type="submit" onclick="loadLogin()">Login Page</button>
+    </div>
 </div>
-<script>
-    let selectedMovie = '';
-
-    function showSelection(movieId) {
-      selectedMovie = movieId;
-
-      // Hide all descriptions
-      const descriptions = document.querySelectorAll('.description');
-      descriptions.forEach(desc => {
-        desc.style.display = 'none';
-      });
-
-      // Show the selected description
-      const selectedDescription = document.getElementById(movieId);
-      if (selectedDescription) {
-        selectedDescription.style.display = 'block';
-      }
-
-      // Show the selection container
-      const selectionContainer = document.getElementById('selection-container');
-      selectionContainer.style.display = 'block';
-
-      // Clear previous selections and checkboxes
-      document.getElementById('day').selectedIndex = 0;
-      document.getElementById('time').selectedIndex = 0;
-      document.getElementById('day-checkbox').checked = false;
-      document.getElementById('time-checkbox').checked = false;
-
-      // Disable the continue button
-      document.getElementById('continue-button').disabled = true;
-
-      // Add event listeners to the select boxes
-      const daySelect = document.getElementById('day');
-      const timeSelect = document.getElementById('time');
-      daySelect.onchange = updateSelection;
-      timeSelect.onchange = updateSelection;
-    }
-
-    function updateSelection() {
-      const day = document.getElementById('day').value;
-      const time = document.getElementById('time').value;
-      const dayCheckbox = document.getElementById('day-checkbox');
-      const timeCheckbox = document.getElementById('time-checkbox');
-      const continueButton = document.getElementById('continue-button');
-      const output = document.getElementById('output');
-
-      // Update checkboxes
-      dayCheckbox.checked = !!day;
-      timeCheckbox.checked = !!time;
-
-      // Enable the continue button if both checkboxes are checked
-      continueButton.disabled = !(dayCheckbox.checked && timeCheckbox.checked);
-
-      // Update output paragraph
-      if (day && time) {
-        output.innerHTML = `You selected <strong>${selectedMovie}</strong> on <strong>${day}</strong> at <strong>${time}<strong> you may continue to book a seat </strong>.`;
-      } else {
-        output.innerHTML = '';
-      }
-    }
-
-    // Add event listener to the continue button
-    document.getElementById('continue-button').addEventListener('click', () => {
-      window.open("Bookseat.html", "_self");
-    });
-  </script>
+<script src="movielist.js"></script>
 </body>
 </html>

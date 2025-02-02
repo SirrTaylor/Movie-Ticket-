@@ -9,7 +9,7 @@
 <body>
     <div class="wrapper">
         <h1>Signup</h1>
-        <p id="error-msg" style="color: red;"></p>
+        <p id="error-msg" style="color: rgb(185, 40, 40);"></p>
         <form id="form1">
             <div>
                 <label for="user-name">
@@ -41,46 +41,99 @@
                 </label>
                 <input required type="password" name="rePassword" id="rPword" placeholder="Repeat Password">
             </div>
+            
             <button type="submit">Sign Up</button>
         </form>
+        <div class="showpass">
+            <label for="pass-checkbox">Show Password</label>
+            <input type="checkbox" id="pass-checkbox">
+        </div>
         <p>Already have an account? <a href="login.html">Login</a></p>
     </div>
-</body>
-<script>
-    const form = document.getElementById('form1');
-    const userNameInput = document.getElementById("user-name");
-    const emailInput = document.getElementById('eMail');
-    const passwordInput = document.getElementById('pword');
-    const repeatPasswordInput = document.getElementById('rPword');
-    const errorMessage = document.getElementById('error-msg');
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const firstName = userNameInput.value.trim();
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-        const repeatPassword = repeatPasswordInput.value;
+    <script>
+        const form = document.getElementById('form1');
+        const userNameInput = document.getElementById("user-name");
+        const emailInput = document.getElementById('eMail');
+        const passwordInput = document.getElementById('pword');
+        const repeatPasswordInput = document.getElementById('rPword');
+        const errorMessage = document.getElementById('error-msg');
+        const showHideCheckbox = document.getElementById("pass-checkbox");
 
-        const errors = validateSignupForm(firstName, email, password, repeatPassword);
+        
+        showHideCheckbox.addEventListener('change', () => {
+            if (showHideCheckbox.checked) {
+                passwordInput.type = "text"; 
+                repeatPasswordInput.type = "text"; 
+            } else {
+                passwordInput.type = "password"; 
+                repeatPasswordInput.type = "password"; 
+            }
+        });
 
-        if (errors.length > 0) {
-            errorMessage.innerText = errors.join(", ");
-        } else {
-            // Save user data to localStorage
-            localStorage.setItem("user-name", firstName);
-            localStorage.setItem("email_1", email);
-            localStorage.setItem("password", password);
-            window.location.href = "login.html";
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const firstName = userNameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const repeatPassword = repeatPasswordInput.value;
+
+            const errors = validateSignupForm(firstName, email, password, repeatPassword);
+            
+            if (errors.length > 0) {
+                errorMessage.innerText = errors.join(", ");
+            } else {
+                // Save user data to localStorage
+                localStorage.setItem("user-name", firstName);
+                localStorage.setItem("email_1", email);
+                localStorage.setItem("password", password);
+                window.location.href = "login.html";
+            }
+        });
+
+        function validateSignupForm(firstName, email, password, repeatPassword) {
+            const errors = [];
+            if (!firstName) {
+                errors.push("First name is required");
+                incorrectColor(1);
+            }
+            if (!email){
+                errors.push("Email is required");
+                incorrectColor(2);
+            }
+            if (!password ){
+                errors.push("Password is required");
+                incorrectColor(3);
+            }
+            else if(password.length < 5){
+                errors.push("Password is too short");
+                incorrectColor(3);
+            }
+            if (password !== repeatPassword) {
+                errors.push("Passwords do not match");
+                incorrectColor(4);
+            }
+            return errors;
         }
-    });
 
-    function validateSignupForm(firstName, email, password, repeatPassword) {
-        const errors = [];
-        if (!firstName) errors.push("First name is required");
-        if (!email) errors.push("Email is required");
-        if (!password) errors.push("Password is required");
-        if (password !== repeatPassword) errors.push("Passwords do not match");
-        return errors;
-    }
-</script>
+        function incorrectColor(n){
+            if (n === 1){
+                const incor = document.getElementById("user-name");
+                incor.classList.add("incorrect");
+            }
+            if (n === 2){
+                const incor = document.getElementById("eMail");
+                incor.classList.add("incorrect");
+            }
+            if (n === 3){
+                const incor = document.getElementById("pword");
+                incor.classList.add("incorrect");
+            }
+            if (n === 4){
+                const incor = document.getElementById("rPword");
+                incor.classList.add("incorrect");
+            }
+        }
+    </script>
+</body>
 </html>

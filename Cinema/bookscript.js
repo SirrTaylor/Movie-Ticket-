@@ -1,66 +1,83 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   const cinema = document.getElementById("cinema");
   const reservationForm = document.getElementById("reservation-form");
 
-  // Fetch reserved seats from localStorage
-  const reservedSeats = JSON.parse(localStorage.getItem("reservedSeats")) || {};
+  const reservedSeats = JSON.parse(localStorage.getItem("reservedSeats")) || {}; // Initialize to empty object if nothing in localStorage
 
-  // Constants for grid dimensions
-  const ROWS = 8; // 8 rows (A-H)
-  const COLS = 8; // 8 columns (1-8)
+  const ROWS = 8;
+  const COLS = 8;
   const TOTAL_SEATS = ROWS * COLS;
 
-  // Create the cinema grid with labels
   createCinemaGrid(cinema, ROWS, COLS);
 
-  // Mark reserved seats
   Object.keys(reservedSeats).forEach((seat) => {
-    const seatElement = document.getElementById(seat);
-    if (seatElement) {
-      seatElement.classList.add("reserved");
-    }
+      const seatElement = document.getElementById(seat);
+      if (seatElement) {
+          seatElement.classList.add("reserved");
+      }
   });
 
-  // Handle seat selection
   cinema.addEventListener("click", (e) => {
-    if (e.target.classList.contains("seat") && !e.target.classList.contains("reserved")) {
-      e.target.classList.toggle("selected");
-    }
+      if (e.target.classList.contains("seat") && !e.target.classList.contains("reserved")) {
+          e.target.classList.toggle("selected");
+      }
   });
 
-  // Handle form submission
   reservationForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const selectedSeats = document.querySelectorAll(".seat.selected");
+      e.preventDefault();
+      const selectedSeats = document.querySelectorAll(".seat.selected");
 
-    // Get the username from localStorage
-    const userName = localStorage.getItem("user-name");
+      const userName = localStorage.getItem("user-name");
+      const userEmail = localStorage.getItem("email_!");
+      const password = localStorage.getItem("password");
 
-    if (!userName) {
-      alert("Please sign up first.");
-      return;
-    }
+      if (!userName) {
+          alert("Please sign up first.");
+          return;
+      }
 
-    if (selectedSeats.length === 0) {
-      alert("Please select at least one seat.");
-      return;
-    }
+      if (selectedSeats.length === 0) {
+          alert("Please select at least one seat.");
+          return;
+      }
 
-    selectedSeats.forEach((seat) => {
-      seat.classList.remove("selected");
-      seat.classList.add("reserved");
-      const seatId = seat.id; // Use the seat ID (e.g., "A1", "H4")
-      reservedSeats[seatId] = userName; // Save reservation
-    });
+      const selectedSeatIds = [];
 
-    localStorage.setItem("reservedSeats", JSON.stringify(reservedSeats));
-    alert("Reservation successful!");
+      selectedSeats.forEach((seat) => {
+          seat.classList.remove("selected");
+          seat.classList.add("reserved");
+          const seatId = seat.id;
+          reservedSeats[seatId] = userName;
+          selectedSeatIds.push(seatId);
+      });
+     //adds to reserved seats
+      localStorage.setItem("reservedSeats", JSON.stringify(reservedSeats));
+      alert("Reservation successful!");
+
+      const userDataString = localStorage.getItem("userBookingDetails");
+      if (userDataString) {
+          const userData = JSON.parse(userDataString);
+          userData.selectedSeats = selectedSeatIds; 
+          localStorage.setItem("userBookingDetails", JSON.stringify(userData));
+          
+      } else {
+          // Handle the case where userBookingDetails doesn't exist yet.
+          const userData = {
+              userName: userName, 
+              userEmail: userEmail,
+              password:password,
+              selectedSeats: selectedSeatIds,
+          };
+          localStorage.setItem("userBookingDetails", JSON.stringify(userData)); // Create it.
+        
+      }
+
   });
 });
 
-// Function to create the cinema grid with labels
 function createCinemaGrid(cinema, rows, cols) {
-  // Create the horizontal number line (column labels)
+  
   const numberLine = document.createElement("div");
   numberLine.classList.add("number-line");
 
@@ -70,7 +87,7 @@ function createCinemaGrid(cinema, rows, cols) {
     number.innerText = col;
     numberLine.appendChild(number);
 
-    // Add gaps after column 2 and column 6
+    
     if (col === 2 || col === 6) {
       const gap = document.createElement("span");
       gap.classList.add("gap");
@@ -80,15 +97,14 @@ function createCinemaGrid(cinema, rows, cols) {
 
   cinema.appendChild(numberLine);
 
-  // Create the grid with vertical alphabetical line (row labels)
+  // Create the grid with vertical alphabetical line 
   for (let row = 0; row < rows; row++) {
     const rowContainer = document.createElement("div");
     rowContainer.classList.add("row");
 
-    // Add the row label (alphabetical)
     const rowLabel = document.createElement("span");
     rowLabel.classList.add("row-label");
-    rowLabel.innerText = String.fromCharCode(65 + row); // A, B, C, etc.
+    rowLabel.innerText = String.fromCharCode(65 + row); 
     rowContainer.appendChild(rowLabel);
 
     // Add the seats for this row
@@ -100,7 +116,7 @@ function createCinemaGrid(cinema, rows, cols) {
       seat.dataset.seatNumber = row * cols + col; // Unique seat number
       rowContainer.appendChild(seat);
 
-      // Add gaps after column 2 and column 6
+      
       if (col === 2 || col === 6) {
         const gap = document.createElement("div");
         gap.classList.add("gap");
@@ -111,3 +127,13 @@ function createCinemaGrid(cinema, rows, cols) {
     cinema.appendChild(rowContainer);
   }
 }
+
+
+function loadLogin(){
+  window.open("login.html", "_self")
+}
+
+function loadMovie(){
+  window.open("MovieList.html", "_self")
+}
+// ... (createCinemaGrid, loadLogin, and loadMovie functions remain the same)

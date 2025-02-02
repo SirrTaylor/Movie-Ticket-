@@ -21,13 +21,13 @@ h1 {
     color :#3f3d58;
     margin-bottom: 40px;
     text-align: center;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 900;
     text-transform: uppercase;
 }
 
 form {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,6 +36,7 @@ form {
 
 input{
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 input, button {
@@ -45,7 +46,7 @@ input, button {
 }
 
 button {
-    background-color: #6c5ce7;
+    background-color: #3f3d58;
     color: white;
     cursor: pointer;
     border-radius: 15px;
@@ -55,9 +56,53 @@ button {
     text-transform: uppercase;
 }
 
-button:hover , .delete-btn:hover, .back-btn:hover{
+button:hover{
     background-color: #4b39a3;
-    transform: scale(1.05);
+    transform: scale(1.08);
+}
+
+
+.back-btn{
+    font-family: inherit;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3f3d58;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    align-items: center;
+}
+
+.back-btn:hover{
+    background-color: #4b39a3;
+    transform: scale(1.08);
+}
+
+.controls{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 46px;
+    gap: 10px;
+}
+
+.delete-btn {
+    background-color: #d63031;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.delete-btn:hover{
+   background-color: #b22a25;
+   transform: scale(1.08);
 }
 
 .bookings-list {
@@ -80,18 +125,6 @@ button:hover , .delete-btn:hover, .back-btn:hover{
     border-bottom: none;
 }
 
-.delete-btn {
-    background-color: #d63031;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 5px 10px;
-}
-
-.delete-btn:hover {
-    background-color: #b22a25;
-}
 
 .no-bookings {
     font-size: 18px;
@@ -99,20 +132,8 @@ button:hover , .delete-btn:hover, .back-btn:hover{
     margin-top: 20px;
 }
 
-.back-btn {
-    font-family: inherit;
-    font-weight: 600;
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #7869ec;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    text-transform: uppercase;
-}
+
+
+
 
 

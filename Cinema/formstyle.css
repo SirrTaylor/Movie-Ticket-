@@ -14,8 +14,6 @@ body{
     opacity: 1;
 }
 
-
-
 html{
     font-family: Poppins, Segeo UI;
     font-size: 15pt;
@@ -26,10 +24,10 @@ html{
 .wrapper{
  background-position: center;
  background-color: lightblue;
- height:90vh;
+ height:100vh;
  width: max(35%,500px);
  padding :5px;
- margin-top: 10px;
+ margin-top: 5px;
  border-radius: 20px 20px 20px 20px;
  display: flex;
  flex-direction: column;
@@ -45,7 +43,7 @@ h1{
 
 form{
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,6 +105,7 @@ div:has(input:focus)label{
 
 form button{
     margin-top: 10px;
+    margin-bottom: 10px;
     border: none;
     border-radius: 10px;
     padding: 10px 20px;
@@ -125,6 +124,10 @@ form button:hover{
     font-weight: 600;
 }
 
+a{
+    margin-bottom: 20px;
+}
+
 a:hover{
   color:rgb(252, 171, 51);
   text-decoration: underline;
@@ -138,7 +141,7 @@ form div.incorrect label{
  background-color: rgb(236, 82, 82);
 }
 
-form div.incorrect input{
+.incorrect{
     background-color: rgb(43, 20, 20);
     border-color:rgb(236, 82, 82) ;
 }
