@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cinema = document.getElementById("cinema");
   const reservationForm = document.getElementById("reservation-form");
 
-  const reservedSeats = JSON.parse(localStorage.getItem("reservedSeats")) || {}; // Initialize to empty object if nothing in localStorage
+  const reservedSeats = JSON.parse(localStorage.getItem("reservedSeats")) || {}; // create empty object if nothing in localStorage
 
   const ROWS = 8;
   const COLS = 8;

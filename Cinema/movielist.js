@@ -61,13 +61,13 @@ let selectedMovie = '';
         const userDataString = localStorage.getItem("userBookingDetails");
         let userBookingDetails = userDataString ? JSON.parse(userDataString) : {};
     
-        if (username && email && password && selectedMovie && day && time) {  // All required data present
+        if (username && email && password && selectedMovie && day && time) {  
             if (!userBookingDetails[username] && !userBookingDetails[email] && !userBookingDetails[password]) { // Check if user exists
-                userBookingDetails[email] = { // Create new user entry
+                userBookingDetails[email] = { 
                     username: username,
                     email: email,
                     password: password,
-                    bookings: [{  // Store bookings as an array
+                    bookings: [{  
                         movie: selectedMovie,
                         day: day,
                         time: time,

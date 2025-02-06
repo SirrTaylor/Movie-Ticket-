@@ -31,7 +31,7 @@
                         <path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z"/>
                     </svg>
                 </label>
-                <input required type="password" name="password" id="pword" placeholder="Password">
+                <input required type="password" name="password" id="pword" placeholder="enter password">
             </div>
             <div>
                 <label for="rPword">
@@ -44,10 +44,12 @@
             
             <button type="submit">Sign Up</button>
         </form>
+       
         <div class="showpass">
             <label for="pass-checkbox">Show Password</label>
             <input type="checkbox" id="pass-checkbox">
         </div>
+        <p class="footnote">*password must be 5 characters long with 1 number and 1 capital letter 
         <p>Already have an account? <a href="login.html">Login</a></p>
     </div>
 
@@ -93,6 +95,7 @@
 
         function validateSignupForm(firstName, email, password, repeatPassword) {
             const errors = [];
+
             if (!firstName) {
                 errors.push("First name is required");
                 incorrectColor(1);
@@ -103,6 +106,14 @@
             }
             if (!password ){
                 errors.push("Password is required");
+                incorrectColor(3);
+            }
+            else if (!/[A-Z]/.test(password)) { 
+                errors.push("Password must contain at least one capital letter");
+                incorrectColor(3);
+            }
+            else if (!/[0-9]/.test(password)) { 
+                errors.push("Password must contain at least one number");
                 incorrectColor(3);
             }
             else if(password.length < 5){
